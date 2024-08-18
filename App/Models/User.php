@@ -14,7 +14,13 @@ use \Core\View;
  */
 class User extends \Core\Model
 {
-
+    public $id;
+    private $username;
+    private $email;
+    private $password;
+    private $password_hash;
+    private $activation_token;
+    private $activation_hash;
     /**
      * Error messages
      *
@@ -53,13 +59,13 @@ class User extends \Core\Model
             $hashed_token = $token->getHash();
             $this->activation_token = $token->getValue();
 
-            $sql = 'INSERT INTO users (name, email, password_hash, activation_hash)
-                    VALUES (:name, :email, :password_hash, :activation_hash)';
+            $sql = 'INSERT INTO users (username, email, password_hash, activation_hash)
+                    VALUES (:username, :email, :password_hash, :activation_hash)';
 
             $db = static::getDB();
             $stmt = $db->prepare($sql);
 
-            $stmt->bindValue(':name', $this->name, PDO::PARAM_STR);
+            $stmt->bindValue(':username', $this->username, PDO::PARAM_STR);
             $stmt->bindValue(':email', $this->email, PDO::PARAM_STR);
             $stmt->bindValue(':password_hash', $password_hash, PDO::PARAM_STR);
             $stmt->bindValue(':activation_hash', $hashed_token, PDO::PARAM_STR);
@@ -78,7 +84,8 @@ class User extends \Core\Model
     public function validate()
     {
         // Name
-        if ($this->name == '') {
+
+        if ($this->username == '') {
             $this->errors[] = 'Name is required';
         }
 
@@ -164,8 +171,8 @@ class User extends \Core\Model
     {
         $user = static::findByEmail($email);
 
-        //if ($user) {
-        if ($user && $user->is_active) {
+        if ($user) {
+        //if ($user && $user->is_active) {
             if (password_verify($password, $user->password_hash)) {
                 return $user;
             }
@@ -366,6 +373,7 @@ class User extends \Core\Model
      */
     public function sendActivationEmail()
     {
+        var_dump($this);
         $url = 'http://' . $_SERVER['HTTP_HOST'] . '/signup/activate/' . $this->activation_token;
 
         $text = View::getTemplate('Signup/activation_email.txt', ['url' => $url]);
