@@ -207,15 +207,15 @@
       <form method="post" id="addIncomeForm" action="/income/create">
         <div class="mb-3">
           <label for="date" class="form-label">Date</label>
-          <input type="date" class="form-control" id="date" name="date" aria-describedby="dateHelp">
+          <input type="date" class="form-control" id="date" name="date" aria-describedby="dateHelp" required>
         </div>
         <div class="mb-3">
           <label for="amount" class="form-label">Amount</label>
-          <input type="number" min="0" max="100000"step="0.01" class="form-control" name="amount" id="amount" oninput="validateAmount(this)">
+          <input type="number" min="0" max="100000"step="0.01" class="form-control" name="amount" id="amount" oninput="validateAmount(this)" required>
         </div>
         <div class="mb-3">
           <label for="category" class="form-label">Category</label>
-          <select class="form-select" id="category" name="category" aria-label="category select">
+          <select class="form-select" id="category" name="category" aria-label="category select" required>
 <!--            <option selected>Open this select menu</option>-->
             {% for category in categories %}
             <option value="{{ category.id }}">{{ category.name }}</option>

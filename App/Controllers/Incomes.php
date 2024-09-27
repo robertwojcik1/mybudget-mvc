@@ -28,13 +28,13 @@ class Incomes extends \Core\Controller
 
         if ($income->save())
         {
-            Flash::addMessage('Income added successfully');
+            Flash::addMessage('Income added successfully', Flash::SUCCESS);
 
             View::renderTemplate('Home/index.html');
         }
         else
         {
-            Flash::addMessage('Failed to add income');
+            Flash::addMessage('Failed to add income', Flash::WARNING);
 
             View::renderTemplate('Home/index.html');
         }
