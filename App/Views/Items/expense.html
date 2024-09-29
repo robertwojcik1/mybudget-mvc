@@ -6,9 +6,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.122.0">
-  <title>Add Income</title>
+<!--  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">-->
+<!--  <meta name="generator" content="Hugo 0.122.0">-->
+  <title>Add Expense</title>
 
   <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/dashboard/">
 
@@ -195,7 +195,7 @@
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
       <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Add Income</h1>
+        <h1 class="h2">Add Expense</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle d-flex align-items-center gap-1">
             <svg class="bi"><use xlink:href="#calendar3"/></svg>
@@ -204,19 +204,29 @@
         </div>
       </div>
 
-      <form method="post" id="addIncomeForm" action="/income/create">
+      <form method="post" id="addExpenseForm" action="/expense/create">
         <div class="mb-3">
           <label for="date" class="form-label">Date</label>
           <input type="date" class="form-control" id="date" name="date" aria-describedby="dateHelp" required>
         </div>
         <div class="mb-3">
           <label for="amount" class="form-label">Amount</label>
-          <input type="number" min="0" max="100000"step="0.01" class="form-control" name="amount" id="amount" oninput="validateAmount(this)" required>
+          <input type="number" min="0" max="100000" step="0.01" class="form-control" name="amount" id="amount" oninput="validateAmount(this)" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="paymentMethod" class="form-label">Payment method</label>
+          <select class="form-select" id="paymentMethod" name="paymentMethod" aria-label="payment method select" required>
+            <!--            <option selected>Open this select menu</option>-->
+            {% for method in methods %}
+            <option value="{{ method.id }}">{{ method.name }}</option>
+            {% endfor %}
+          </select>
         </div>
         <div class="mb-3">
           <label for="category" class="form-label">Category</label>
           <select class="form-select" id="category" name="category" aria-label="category select" required>
-<!--            <option selected>Open this select menu</option>-->
+            <!--            <option selected>Open this select menu</option>-->
             {% for category in categories %}
             <option value="{{ category.id }}">{{ category.name }}</option>
             {% endfor %}
