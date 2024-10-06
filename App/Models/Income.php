@@ -54,4 +54,18 @@ class Income extends \Core\Model
             return false;
         }
     }
+
+    public static function getIncomes()
+    {
+        $sql = 'SELECT i.date_of_income, c.name, i.amount, i.income_comment
+                FROM incomes i LEFT JOIN incomes_category_assigned_to_users c ON 
+                i.income_category_assigned_to_user_id = c.id WHERE i.user_id = 3';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->execute();
+        $incomes = $stmt->fetchAll();
+        return $incomes;
+    }
 }

@@ -13,6 +13,23 @@ class Expense extends \Core\Model
     private $date;
     private $comment;
 
+    public static function getExpenses()
+    {
+        $sql = 'SELECT e.date_of_expense, c.name, e.amount, p.name as payment, e.expense_comment
+                FROM expenses e LEFT JOIN expenses_category_assigned_to_users c ON 
+                e.expense_category_assigned_to_user_id = c.id 
+                LEFT JOIN payment_methods_assigned_to_users p ON
+                e.payment_method_assigned_to_user_id = p.id
+                WHERE e.user_id = 1';
+
+        $db = static::getDB();
+        $stmt = $db->prepare($sql);
+
+        $stmt->execute();
+        $expenses = $stmt->fetchAll();
+        return $expenses;
+    }
+
     public function getCategories()
     {
         $sql = 'SELECT id, name FROM expenses_category_assigned_to_users
