@@ -183,7 +183,7 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2" href="#">
+              <a class="nav-link d-flex align-items-center gap-2" href="/logout">
                 <svg class="bi"><use xlink:href="#door-closed"/></svg>
                 Sign out
               </a>
@@ -230,6 +230,12 @@
           <td colspan="5">No incomes available</td>
         </tr>
         {% endfor %}
+        <tr>
+          <td colspan="2"></td>
+          <td><strong>Total Amount:</strong></td>
+          <td><strong>{{ totalIncomes }}</strong></td>
+          <td></td>
+        </tr>
         </tbody>
       </table>
 
@@ -262,6 +268,13 @@
           <td colspan="5">No expenses available</td>
         </tr>
         {% endfor %}
+        <tr>
+          <td colspan="2"></td>
+          <td><strong>Total Amount:</strong></td>
+          <td><strong>{{ totalExpenses }}</strong></td>
+          <td></td>
+          <td></td>
+        </tr>
         </tbody>
       </table>
 

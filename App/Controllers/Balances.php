@@ -14,9 +14,14 @@ class Balances extends \Core\Controller
         $incomes = Income::getIncomes();
         $expenses = Expense::getExpenses();
 
+        $totalIncomes = array_sum(array_column($incomes, 'amount'));
+        $totalExpenses = array_sum(array_column($expenses, 'amount'));
+
         View::renderTemplate('Items/balance.html', [
             'incomes' => $incomes,
-            'expenses' => $expenses
+            'expenses' => $expenses,
+            'totalIncomes' => $totalIncomes,
+            'totalExpenses' => $totalExpenses,
         ]);
     }
 }
